@@ -4,10 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flores Digitales</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      color: #4a1025;
+    }
+
+    .contenedor {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 400px;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .flor {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 30px auto;
+      animation: girar 8s linear infinite;
+    }
+
+    .petalo {
+      position: absolute;
+      width: 60px;
+      height: 90px;
+      background: #ff4f8b;
+      border-radius: 60px 60px 0 0;
+      left: 30px;
+      top: 10px;
+      transform-origin: 30px 70px;
+    }
+
+    .petalo:nth-child(1) { transform: rotate(0deg); }
+    .petalo:nth-child(2) { transform: rotate(60deg); }
+    .petalo:nth-child(3) { transform: rotate(120deg); }
+    .petalo:nth-child(4) { transform: rotate(180deg); }
+    .petalo:nth-child(5) { transform: rotate(240deg); }
+    .petalo:nth-child(6) { transform: rotate(300deg); }
+
+    .centro {
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      background: #ffd700;
+      border-radius: 50%;
+      left: 38px;
+      top: 45px;
+      z-index: 3;
+    }
+
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .corazon {
+      position: absolute;
+      color: rgba(255,255,255,0.8);
+      font-size: 24px;
+      animation: flotar 6s linear infinite;
+    }
+
+    @keyframes flotar {
+      from {
+        transform: translateY(100vh);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>🌸 Flores Digitales 🌸</h1>
-  <p>Esta persona te envió flores digitales con mucho cariño.</p>
-  <p>Pronto aquí aparecerán flores animadas y música.</p>
+  <div class="contenedor">
+    <h1>🌸 Flores Digitales 🌸</h1>
+
+    <div class="flor">
+      <div class="petalo"></div>
+      <div class="petalo"></div>
+      <div class="petalo"></div>
+      <div class="petalo"></div>
+      <div class="petalo"></div>
+      <div class="petalo"></div>
+      <div class="centro"></div>
+    </div>
+
+    <p>Esta persona te envió flores digitales con mucho cariño.</p>
+    <p>Un pequeño detalle para alegrar tu día 💖</p>
+  </div>
+
+  <div class="corazon" style="left: 10%; animation-delay: 0s;">💖</div>
+  <div class="corazon" style="left: 30%; animation-delay: 2s;">🌸</div>
+  <div class="corazon" style="left: 50%; animation-delay: 1s;">💗</div>
+  <div class="corazon" style="left: 70%; animation-delay: 3s;">🌹</div>
+  <div class="corazon" style="left: 90%; animation-delay: 4s;">💕</div>
 </body>
 </html>
