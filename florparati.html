@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas Digitales</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+      color: #4b2b00;
+      text-align: center;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.9), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(255,219,77,0.7), transparent 35%),
+        linear-gradient(135deg, #fff7b2, #ffd84d, #ffb300);
+    }
+
+    .inicio {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 35%),
+        linear-gradient(135deg, #fff6a6, #ffd23f, #ffad00);
+    }
+
+    .caja-inicio,
+    .tarjeta {
+      width: 100%;
+      max-width: 470px;
+      padding: 34px 24px;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(255,255,255,0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 60px rgba(129, 86, 0, 0.35);
+    }
+
+    .caja-inicio h1 {
+      font-size: 35px;
+      margin: 0 0 14px;
+      color: #7a4c00;
+    }
+
+    .caja-inicio p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0;
+      color: #5d3a00;
+    }
+
+    button {
+      margin-top: 24px;
+      padding: 15px 34px;
+      border: none;
+      border-radius: 35px;
+      background: #fff;
+      color: #c47a00;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(120, 72, 0, 0.25);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.06);
+      background: #fff9d6;
+    }
+
+    .contenido {
+      display: none;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    h2 {
+      font-size: 34px;
+      margin: 0 0 6px;
+      color: #7a4c00;
+      text-shadow: 0 3px 8px rgba(255,255,255,0.6);
+    }
+
+    .subtitulo {
+      font-size: 17px;
+      color: #6b4300;
+      margin: 0 0 6px;
+    }
+
+    .zona-flor {
+      position: relative;
+      width: 300px;
+      height: 390px;
+      margin: 0 auto;
+    }
+
+    .flor {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      left: 45px;
+      top: 28px;
+      animation: respirar 3s infinite ease-in-out;
+      filter: drop-shadow(0 20px 18px rgba(118, 76, 0, 0.25));
+    }
+
+    .petalo {
+      position: absolute;
+      width: 86px;
+      height: 130px;
+      left: 62px;
+      top: 0;
+      background: linear-gradient(180deg, #fff8a8, #ffd21f, #f5a400);
+      border-radius: 80% 80% 45% 45%;
+      transform-origin: 43px 105px;
+      box-shadow:
+        inset 0 9px 16px rgba(255,255,255,0.55),
+        0 7px 14px rgba(155, 91, 0, 0.18);
+    }
+
+    .petalo:nth-child(1) { transform: rotate(0deg); }
+    .petalo:nth-child(2) { transform: rotate(40deg); }
+    .petalo:nth-child(3) { transform: rotate(80deg); }
+    .petalo:nth-child(4) { transform: rotate(120deg); }
+    .petalo:nth-child(5) { transform: rotate(160deg); }
+    .petalo:nth-child(6) { transform: rotate(200deg); }
+    .petalo:nth-child(7) { transform: rotate(240deg); }
+    .petalo:nth-child(8) { transform: rotate(280deg); }
+    .petalo:nth-child(9) { transform: rotate(320deg); }
+
+    .centro {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      left: 70px;
+      top: 86px;
+      z-index: 5;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, #8b4a00, #5a2c00 65%, #3a1a00);
+      box-shadow: 0 0 25px rgba(255, 195, 0, 0.95);
+    }
+
+    .tallo {
+      position: absolute;
+      width: 14px;
+      height: 185px;
+      left: 143px;
+      top: 198px;
+      background: linear-gradient(180deg, #5bd866, #218c34);
+      border-radius: 18px;
+      z-index: -1;
+    }
+
+    .hoja {
+      position: absolute;
+      width: 92px;
+      height: 48px;
+      top: 285px;
+      background: linear-gradient(135deg, #89ef7e, #208c33);
+      border-radius: 90px 0 90px 0;
+      box-shadow: 0 10px 18px rgba(89, 65, 0, 0.18);
+    }
+
+    .hoja.izquierda {
+      left: 50px;
+      transform: rotate(-28deg);
+    }
+
+    .hoja.derecha {
+      right: 50px;
+      transform: rotate(205deg);
+    }
+
+    .mensaje-principal {
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.45;
+      color: #7a4c00;
+      margin: 8px 0 10px;
+    }
+
+    .mensaje-secundario {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #5d3a00;
+      margin: 0;
+    }
+
+    .nota {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 14px;
+      color: #6b4300;
+    }
+
+    .flor-fondo {
+      position: absolute;
+      bottom: -70px;
+      font-size: 34px;
+      opacity: 0.85;
+      animation: subir 9s linear infinite;
+      z-index: 1;
+    }
+
+    .sol {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      top: -55px;
+      right: -55px;
+      background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,229,92,0.8), transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .campo {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -12px;
+      height: 120px;
+      background:
+        radial-gradient(circle at 10% 30%, #ffd21f 0 8px, transparent 9px),
+        radial-gradient(circle at 25% 60%, #ffe45c 0 8px, transparent 9px),
+        radial-gradient(circle at 42% 35%, #ffd21f 0 8px, transparent 9px),
+        radial-gradient(circle at 60% 65%, #ffe45c 0 8px, transparent 9px),
+        radial-gradient(circle at 78% 35%, #ffd21f 0 8px, transparent 9px),
+        radial-gradient(circle at 92% 60%, #ffe45c 0 8px, transparent 9px),
+        linear-gradient(180deg, transparent, rgba(67, 143, 47, 0.45));
+      z-index: 0;
+      opacity: 0.75;
+    }
+
+    @keyframes respirar {
+      0%, 100% {
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.07) rotate(3deg);
+      }
+    }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-115vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    #player {
+      width: 1px;
+      height: 1px;
+      opacity: 0.01;
+      position: absolute;
+      left: -9999px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sol"></div>
+  <div class="campo"></div>
+
+  <div class="inicio" id="inicio">
+    <div class="caja-inicio">
+      <h1>🌻 Tienes flores amarillas 🌻</h1>
+      <p>
+        Alguien preparó este pequeño detalle para ti,
+        con una canción especial y mucho cariño.
+      </p>
+      <button onclick="abrirRegalo()">Abrir regalo</button>
+    </div>
+  </div>
+
+  <div class="contenido" id="contenido">
+    <div class="tarjeta">
+      <h2>🌼 Flores amarillas para ti 🌼</h2>
+      <p class="subtitulo">Un detalle bonito para alegrar tu día</p>
+
+      <div class="zona-flor">
+        <div class="flor">
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="centro"></div>
+        </div>
+
+        <div class="tallo"></div>
+        <div class="hoja izquierda"></div>
+        <div class="hoja derecha"></div>
+      </div>
+
+      <p class="mensaje-principal">
+        Te envío flores amarillas<br>
+        con mucho cariño 💛
+      </p>
+
+      <p class="mensaje-secundario">
+        Que esta flor y esta canción te recuerden que eres una persona especial.
+      </p>
+
+      <p class="nota">La música empieza después de tocar “Abrir regalo”.</p>
+
+      <div id="player"></div>
+    </div>
+  </div>
+
+  <div class="flor-fondo" style="left: 6%; animation-delay: 0s;">🌼</div>
+  <div class="flor-fondo" style="left: 18%; animation-delay: 2s;">💛</div>
+  <div class="flor-fondo" style="left: 32%; animation-delay: 4s;">🌻</div>
+  <div class="flor-fondo" style="left: 48%; animation-delay: 1s;">✨</div>
+  <div class="flor-fondo" style="left: 64%; animation-delay: 3s;">🌼</div>
+  <div class="flor-fondo" style="left: 80%; animation-delay: 5s;">💛</div>
+  <div class="flor-fondo" style="left: 92%; animation-delay: 2.5s;">🌻</div>
+
+  <script>
+    function abrirRegalo() {
+      document.getElementById("inicio").style.display = "none";
+      document.getElementById("contenido").style.display = "flex";
+
+      document.getElementById("player").innerHTML = `
+        <iframe
+          width="1"
+          height="1"
+          src="https://www.youtube.com/embed/gv63CGCx6vg?autoplay=1&loop=1&playlist=gv63CGCx6vg"
+          title="Floricienta - Flores Amarillas"
+          frameborder="0"
+          allow="autoplay; encrypted-media">
+        </iframe>
+      `;
+    }
+  </script>
+
+</body>
+</html>
