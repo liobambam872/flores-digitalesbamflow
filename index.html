@@ -3,125 +3,297 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flores Digitales</title>
+  <title>Flor Digital</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe1ec, #ff8fab, #6d1238);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .inicio {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ffccd5, #ff4d88, #5c0f2e);
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      overflow: hidden;
-      color: #4a1025;
+      z-index: 20;
+      padding: 25px;
     }
 
-    .contenedor {
-      background: rgba(255, 255, 255, 0.25);
-      padding: 30px;
-      border-radius: 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      max-width: 400px;
-      z-index: 2;
+    .caja-inicio {
+      max-width: 430px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 30px;
+      padding: 35px 25px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
 
-    h1 {
-      font-size: 34px;
-      margin-bottom: 10px;
+    .caja-inicio h1 {
+      font-size: 36px;
+      margin-bottom: 15px;
     }
 
-    p {
+    .caja-inicio p {
       font-size: 18px;
       line-height: 1.5;
     }
 
-    .flor {
+    button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #c2185b;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .contenido {
+      display: none;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
       position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 30px auto;
-      animation: girar 8s linear infinite;
+      z-index: 5;
+    }
+
+    .tarjeta {
+      max-width: 440px;
+      width: 100%;
+      padding: 30px 22px;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    h2 {
+      font-size: 35px;
+      margin: 10px 0 5px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .mensaje {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-top: 18px;
+    }
+
+    .zona-flor {
+      position: relative;
+      width: 260px;
+      height: 360px;
+      margin: 10px auto 0;
+    }
+
+    .flor {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      left: 40px;
+      top: 20px;
+      animation: respirar 3s infinite ease-in-out;
     }
 
     .petalo {
       position: absolute;
-      width: 60px;
-      height: 90px;
-      background: #ff4f8b;
-      border-radius: 60px 60px 0 0;
-      left: 30px;
-      top: 10px;
-      transform-origin: 30px 70px;
+      width: 75px;
+      height: 115px;
+      background: linear-gradient(#ff9ec4, #ff2d7a);
+      border-radius: 70% 70% 35% 35%;
+      left: 52px;
+      top: 0;
+      transform-origin: 37px 90px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
     }
 
     .petalo:nth-child(1) { transform: rotate(0deg); }
-    .petalo:nth-child(2) { transform: rotate(60deg); }
-    .petalo:nth-child(3) { transform: rotate(120deg); }
-    .petalo:nth-child(4) { transform: rotate(180deg); }
-    .petalo:nth-child(5) { transform: rotate(240deg); }
-    .petalo:nth-child(6) { transform: rotate(300deg); }
+    .petalo:nth-child(2) { transform: rotate(45deg); }
+    .petalo:nth-child(3) { transform: rotate(90deg); }
+    .petalo:nth-child(4) { transform: rotate(135deg); }
+    .petalo:nth-child(5) { transform: rotate(180deg); }
+    .petalo:nth-child(6) { transform: rotate(225deg); }
+    .petalo:nth-child(7) { transform: rotate(270deg); }
+    .petalo:nth-child(8) { transform: rotate(315deg); }
 
     .centro {
       position: absolute;
-      width: 45px;
-      height: 45px;
-      background: #ffd700;
+      width: 62px;
+      height: 62px;
+      background: radial-gradient(circle, #fff176, #ffb300);
       border-radius: 50%;
-      left: 38px;
-      top: 45px;
-      z-index: 3;
+      left: 59px;
+      top: 75px;
+      z-index: 4;
+      box-shadow: 0 0 20px rgba(255,215,0,0.9);
     }
 
-    @keyframes girar {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .corazon {
+    .tallo {
       position: absolute;
-      color: rgba(255,255,255,0.8);
-      font-size: 24px;
-      animation: flotar 6s linear infinite;
+      width: 12px;
+      height: 185px;
+      background: linear-gradient(#2ecc71, #168f45);
+      border-radius: 20px;
+      left: 124px;
+      top: 170px;
+      z-index: -1;
+    }
+
+    .hoja {
+      position: absolute;
+      width: 80px;
+      height: 42px;
+      background: linear-gradient(135deg, #5ee287, #168f45);
+      border-radius: 80px 0 80px 0;
+      top: 245px;
+    }
+
+    .hoja.izquierda {
+      left: 45px;
+      transform: rotate(-25deg);
+    }
+
+    .hoja.derecha {
+      right: 45px;
+      transform: rotate(205deg);
+    }
+
+    .brillo {
+      position: absolute;
+      font-size: 28px;
+      animation: flotar 7s linear infinite;
+      opacity: 0.9;
+      z-index: 1;
+    }
+
+    @keyframes respirar {
+      0%, 100% {
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.08) rotate(3deg);
+      }
     }
 
     @keyframes flotar {
-      from {
-        transform: translateY(100vh);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-10vh);
+      0% {
+        transform: translateY(110vh) rotate(0deg);
         opacity: 0;
       }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-15vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .musica {
+      width: 1px;
+      height: 1px;
+      opacity: 0.01;
+      position: absolute;
+      left: -9999px;
+    }
+
+    .nota {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-top: 12px;
     }
   </style>
 </head>
 
 <body>
-  <div class="contenedor">
-    <h1>🌸 Flores Digitales 🌸</h1>
 
-    <div class="flor">
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="centro"></div>
+  <div class="inicio" id="inicio">
+    <div class="caja-inicio">
+      <h1>🌹 Tienes una flor digital 🌹</h1>
+      <p>Alguien pensó en ti y te envió una flor con una canción especial.</p>
+      <button onclick="abrirRegalo()">Abrir regalo</button>
     </div>
-
-    <p>Esta persona te envió flores digitales con mucho cariño.</p>
-    <p>Un pequeño detalle para alegrar tu día 💖</p>
   </div>
 
-  <div class="corazon" style="left: 10%; animation-delay: 0s;">💖</div>
-  <div class="corazon" style="left: 30%; animation-delay: 2s;">🌸</div>
-  <div class="corazon" style="left: 50%; animation-delay: 1s;">💗</div>
-  <div class="corazon" style="left: 70%; animation-delay: 3s;">🌹</div>
-  <div class="corazon" style="left: 90%; animation-delay: 4s;">💕</div>
+  <div class="contenido" id="contenido">
+    <div class="tarjeta">
+      <h2>🌹 Una flor para ti 🌹</h2>
+
+      <div class="zona-flor">
+        <div class="flor">
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="centro"></div>
+        </div>
+
+        <div class="tallo"></div>
+        <div class="hoja izquierda"></div>
+        <div class="hoja derecha"></div>
+      </div>
+
+      <p class="mensaje">
+        Esta flor digital fue enviada con mucho cariño.  
+        Que esta canción te recuerde lo especial que eres 💖
+      </p>
+
+      <p class="nota">La música empieza después de tocar “Abrir regalo”.</p>
+
+      <div id="player" class="musica"></div>
+    </div>
+  </div>
+
+  <div class="brillo" style="left: 8%; animation-delay: 0s;">✨</div>
+  <div class="brillo" style="left: 22%; animation-delay: 2s;">💖</div>
+  <div class="brillo" style="left: 38%; animation-delay: 4s;">🌸</div>
+  <div class="brillo" style="left: 58%; animation-delay: 1s;">💕</div>
+  <div class="brillo" style="left: 76%; animation-delay: 3s;">✨</div>
+  <div class="brillo" style="left: 90%; animation-delay: 5s;">🌹</div>
+
+  <script>
+    function abrirRegalo() {
+      document.getElementById("inicio").style.display = "none";
+      document.getElementById("contenido").style.display = "flex";
+
+      document.getElementById("player").innerHTML = `
+        <iframe 
+          width="1" 
+          height="1" 
+          src="https://www.youtube.com/embed/p4QqMKe3rwY?autoplay=1&loop=1&playlist=p4QqMKe3rwY"
+          title="ABBA - Chiquitita"
+          frameborder="0"
+          allow="autoplay; encrypted-media">
+        </iframe>
+      `;
+    }
+  </script>
+
 </body>
 </html>
